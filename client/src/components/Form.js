@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ImageUpload from './ImageUpload';
+import axios from "axios";
 
 const Form = () => {
   const [toggle, setToggle] = useState(false);
@@ -9,41 +10,52 @@ const Form = () => {
   const [location, setLocation] = useState('');
   const [contact, setContact] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [category, setCategory] = useState('');
+
 
   const handleImageUpload = ({ target: { value } }) => {
     setImageUrl(value);
-    console.log('ddas', imageUrl)
   };
 
   const handleClick = () => {
     setToggle(show => !show);
   }
-  const handlechangeItem = ({targe: { value }}) => {
+  const handlechangeItem = ({target: { value }}) => {
     setItem(value);
   };
-  const handlechangePrice = ({targe: { value }}) => {
+  const handlechangePrice = ({target: { value }}) => {
     setPrice(value);
   };
-  const handlechangeDescription = ({targe: { value }}) => {
+  const handlechangeDescription = ({target: { value }}) => {
     setDescription(value);
   };
-  const handlechangeLocation = ({targe: { value }}) => {
+  const handlechangeLocation = ({target: { value }}) => {
     setLocation(value);
   };
-  const handlechangeContact = ({targe: { value }}) => {
+  const handlechangeContact = ({target: { value }}) => {
     setContact(value);
   };
-  const handlechangeImageUrl = ({targe: { value }}) => {
-    setImageUrl(value)
+  const handlechangeCategory = ({target: { value }}) => {
+    setCategory(value);
   };
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const newItem = {
+      item,
+      description,
+      price,
+      contact,
+      category,
+      imageUrl,
+      location
+    }
+    await axios.post('http://localhost:4000/api/items', newItem);
   };
 
   return (
     <div>
-      <button className='formbtn' onClick={handleClick}>Sell Item</button>
+      <button className='form__btn' onClick={handleClick}>Sell Item</button>
       {toggle &&(
        <form onSubmit={handleSubmit}>
        <label>Item:</label>
@@ -56,9 +68,11 @@ const Form = () => {
        <input placeholder='ex:Stockholm' value={location} onChange={handlechangeLocation} />
        <label>Contact:</label>
        <input placeholder='ex:07777222' value={contact} onChange={handlechangeContact} />
+       <label>category:</label>
+       <input placeholder='ex:Electronics' value={category} onChange={handlechangeCategory} />
       <ImageUpload uploadImg={handleImageUpload}/>
       <img src={imageUrl}/>
-      <button className='formbtn' type='submit' >Add Item</button>
+      <button className='form__btn' type='submit' >Add Item</button>
       </form>
       )
      }

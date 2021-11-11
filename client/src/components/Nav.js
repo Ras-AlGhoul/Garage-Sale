@@ -8,9 +8,15 @@ const Nav = () => {
     <div>
       <a href='/'> <img className='logo' src={logo}></img> </a>
       <nav className='nav'>
-        <li> Home </li>
-        <li> Items </li>
-        <li> About </li>
+        <Link to='/'>
+          <li> Home </li>
+        </Link>
+        <Link to='/search'>
+          <li> Search </li>
+        </Link>
+        <Link to='/About'>
+          <li> About </li>
+        </Link>
       </nav>
     </div>
   )

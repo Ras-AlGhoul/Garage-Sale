@@ -1,0 +1,19 @@
+@media (max-width: 600px) {
+body{
+  padding: 0px;
+}
+.items {
+  width: 100%;
+  padding: 0px;
+}
+.items__card{
+  width: 100%;
+  margin: 0px;
+  border: 0px;
+  border-radius: 0px;
+}
+.card__img{
+  width: 100%;
+  border-radius: 0px;
+}
+}

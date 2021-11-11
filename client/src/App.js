@@ -1,13 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './styles/app.css';
-import Nav from './components/Nav';
-import Form from './components/Form';
+import Home from './pages/Home';
+import About from './pages/About';
+import Search from './pages/Search';
+
 const App = () => {
+
+
   return (
-    <div className='app'>
-      <Nav />
-      <Form />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/search' element={<Search />} />
+      </Routes>
+    </BrowserRouter>
   )
 };
 
