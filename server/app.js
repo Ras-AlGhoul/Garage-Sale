@@ -1,18 +1,76 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+import { reqBodyValidator, idValidator, nextId } from './errorHandling.js'
 const app = express();
-const port = process.env.PORT || 4000;
-import nodeFetch from 'node-fetch';
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-const fetchData = async (path) => {
-  const response = await nodeFetch(path);
-  const data = await response.json();
-  console.log(data);
-  return data;
-};
+let items = [
+  {id:'1', item:'Osaka knife', description:'high Quality Knife', price:'700', location:'Stockholm', contact:'0722899332', imageUrl:''},
+  {id:'2', item:'Yamaha Engine', description:'two boat Yamah engines in a great shape', price:'3000', location:'Eskilstuna', contact:'073443323', imageUrl:''}
+];
 
-app.get('/', (req, res) => {
-  res.send('Hello world');
-})
-app.listen(port, () => {
-  console.log(`app is running on ${port}`);
+app.get('/api/items', (req, res) => {
+  res.send(items);
 });
+
+app.get('/api/items/:id', (req, res) => {
+  const { id } = req.params;
+  idValidator(id, items);
+  const item = items.filter(item => item.id === id);
+  res.send(item);
+})
+
+app.post('/api/items', (req,res) => {
+  res.setHeader('content-type', 'application/json');
+  reqBodyValidator(req);
+  const newItem = {
+    id: nextId(items).toString(),
+    item: req.body.item,
+    description: req.body.description,
+    price: req.body.price,
+    location: req.body.location,
+    contatct: req.body.contact,
+    imageUrl: req.body.imageUrl,
+  };
+  items = [...items, newItem];
+  res.status(201);
+  res.send(newItem);
+});
+
+app.put('/api/items/:id', (req, res) => {
+  res.setHeader('content-type', 'application/json');
+  const { id } = req.params;
+  idValidator(id, items);
+  const editedItem = {
+      id: id,
+      item: req.body.item,
+      description: req.body.description,
+      price: req.body.price,
+      location: req.body.location,
+      contatct: req.body.contact,
+      imageUrl: req.body.imageUrl,
+  }
+  items = items.map(item => item.id === id? editedItem : item );
+  res.status(204);
+  res.end();
+});
+
+app.delete('/api/items/:id', (req, res) => {
+  const { id } = req.params;
+  idValidator(id, items);
+  items = items.filter(item => item.id !== id);
+  res.status(204);
+  res.end()
+});
+
+
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(err.status || 500).send({ status: err.status, message: err.message });
+  } else {
+    next();
+  }
+});
+
+export default app;
