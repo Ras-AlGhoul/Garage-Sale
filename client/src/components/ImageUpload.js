@@ -27,10 +27,10 @@ const ImageUpload = ({ uploadImg }) => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     postToCloude();
   }, [imgFile]);
-
 
   return (
     <div>
@@ -47,4 +47,4 @@ const ImageUpload = ({ uploadImg }) => {
   )
 }
 
-export default ImageUpload
+export default ImageUpload;

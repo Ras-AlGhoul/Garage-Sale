@@ -4,6 +4,7 @@ import Form from '../components/Form';
 import Products from '../components/Products';
 
 const Home = () => {
+  const [refresh, setRefresh] = useState(false);
   const [items, setItems] = useState([]);
   const fetchItems = async () => {
     await fetch('http://localhost:4000/api/items')
@@ -13,14 +14,15 @@ const Home = () => {
 
   useEffect(() => {
     fetchItems()
+    console.log('sasas')
     return () => {
     }
-  }, []);
+  }, [refresh]);
   
   return (
     <div className='app'>
       <Nav />
-      <Form />
+      <Form setRefresh={setRefresh}/>
       <Products items={items} />
     </div>
   )

@@ -3,8 +3,8 @@ import Card from './Card';
 
 const Products = ({ items }) => {
     return (
-        <div>
-            {items.map((i, index) => 
+        <div className='products'>
+            {items?.map((i, index) => 
             <Card
             key={index}
             item={i.item}
@@ -13,7 +13,7 @@ const Products = ({ items }) => {
             contact={i.contact}
             location={i.location}
             category={i.category}
-            imageUrl={i.imageUrl} />)}
+            imageUrl={i.imageUrl} />).reverse()}
         </div>
     )
 };

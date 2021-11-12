@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import Card from '../components/Card';
 import Nav from '../components/Nav';
 
@@ -24,8 +24,9 @@ const Search = () => {
     <div className='app'>
       <Nav />
       <form onSubmit={handleSubmit}>
-        <input className='search' value={input} onChange={handleChange}/>
+        <input placeholder='search by category... ex:parts' className='search' value={input} onChange={handleChange}/>
       </form>
+      <div className='products'>
       {search.map((i, index) => 
             <Card
             key={index}
@@ -35,7 +36,8 @@ const Search = () => {
             contact={i.contact}
             location={i.location}
             category={i.category}
-            imageUrl={i.imageUrl} />)}
+            imageUrl={i.imageUrl} />).reverse()}
+      </div>
     </div>
   )
 }

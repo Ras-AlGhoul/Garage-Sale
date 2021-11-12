@@ -3,6 +3,7 @@ body{
   padding: 0px;
 }
 .items {
+  margin-top: 30px;
   width: 100%;
   padding: 0px;
 }
@@ -15,5 +16,28 @@ body{
 .card__img{
   width: 100%;
   border-radius: 0px;
+}
+.about{
+  margin: 30px 30px;
+  background-color: #bebebe42;
+  padding: 20px;
+  border-radius: 30px;
+}
+.about__text{
+  text-align: left;
+  font-size: 20.5px;
+}
+.item__form{
+ text-align: left;
+}
+
+.item__form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+label{
+  display: none;
 }
 }
