@@ -103,6 +103,7 @@ input{
   padding-bottom: 15px;
 }
 .card__midcontent{
+  margin-top: 10px;
   text-align: left;
   margin-right: 10px;
 }
