@@ -3,6 +3,7 @@ import ReactImageUploadComponent from "react-images-upload";
 import axios from "axios";
 
 const ImageUpload = ({ uploadImg }) => {
+  const token = process.env.REACT_APP_ACCESS_TOKEN;
   const [imgFile, setImgFile] = useState(null);
   const imageUpload = (e) => {
     let imageFile = e[0];
@@ -15,7 +16,7 @@ const ImageUpload = ({ uploadImg }) => {
   const postToCloude = async () => {
     try {
       if (imgFile !== null) {
-        const response = await axios.post("https://api.cloudinary.com/v1_1/dz2vr4bag/image/upload", imgFile);
+        const response = await axios.post(`https://api.cloudinary.com/v1_1/${token}/image/upload`, imgFile);
         uploadImg({
           target: {
             name: "imageUrl",
