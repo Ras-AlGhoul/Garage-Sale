@@ -4,7 +4,8 @@ import Nav from '../components/Nav';
 
 const Search = () => {
   const [input, setInput] = useState('');
-  const [search, setSearch] = useState([])
+  const [search, setSearch] = useState([]);
+  
   const handleChange = ({target: {value}}) => {
     setInput(value)
   };
